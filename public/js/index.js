@@ -6,15 +6,23 @@ function getDetails(id) {
     success: function(response) {
       const { name, website, city, state, price, rating } = response.data[0];
       // $('.collections').html = response.data
-      output = `<div class="col-md-4 card card-body mt-4 mr-2 display">
-                               <h4 class="card-title">${name}</h4>
-                               <p class="card-text">Some quick example text to build on the card title
-                               and make up the bulk of the card's content.</p>
-                               <ul class="list-group list-group-flush">
-                               <li class="list-group-item">Website: <h5><span class="badge badge-primary ">${website}</span></h5></li>
-                        <li class="list-group-item">Rating: ${rating}</li>
-                        </ul>
-                      </div>`;
+      let ratings = "";
+
+      for (let i = 0; i < rating; i++) {
+        ratings += `<i class="fas fa-star"></i>`;
+      }
+      const output = `<div class="col-md-3 card card-body mt-4 mr-2 display">
+        <img src="../img/airbnb.jpg" class="card-img-top mt-3" alt="hotel interior image">
+        <div class="card-body">
+          <h4 class="card-title">${name}</h4>
+          
+          <p class="card-text">from<span class="span-price"> $${price}</span></p>
+          <ul class="list-group list-group-flush">
+  <li class="list-group-item">Rating: <h6>${ratings}</span></h6></li>
+        </ul>
+        <button class="btn btn-primary text-white mt-1 update" onclick="getOne(${id})"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-primary delete ml-2 text-danger mt-1" onclick="deleteOne(${id})"><i class="fas fa-times"></i></button>
+        </div>
+      </div>`;
 
       $(".collections").html(output);
       $(".update").on("click", e => {
@@ -53,6 +61,11 @@ function getAllHotel() {
       } else {
         let output = "";
         result.forEach(hotel => {
+          let rating = "";
+
+          for (let i = 0; i < hotel.rating; i++) {
+            rating += `<i class="fas fa-star"></i>`;
+          }
           output += `<div class="col-md-3 card card-body mt-4 mr-2 display" onclick="getDetails(${hotel.id})">
         <img src="../img/airbnb.jpg" class="card-img-top mt-3" alt="hotel interior image">
         <div class="card-body">
@@ -60,7 +73,7 @@ function getAllHotel() {
           
           <p class="card-text">from<span class="span-price"> $${hotel.price}</span></p>
           <ul class="list-group list-group-flush">
-  <li class="list-group-item">Rating: <h5><span class="badge badge-primary ">${hotel.rating}</span></h5></li>
+  <li class="list-group-item">Rating: <h6>${rating}</span></h6></li>
         </ul>
         <button class="btn btn-primary text-white mt-1 update" onclick="getOne(${hotel.id})"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-primary delete ml-2 text-danger mt-1" onclick="deleteOne(${hotel.id})"><i class="fas fa-times"></i></button>
         </div>
@@ -129,18 +142,24 @@ function updateHotel(id) {
       $(".create-hotel").hide();
       const hotel = response.data;
 
-      const output = `<div class="col-md-3 card card-body mt-4 mr-2 display" onclick="getDetails(${hotel.id})">
-      <img src="../img/airbnb.jpg" class="card-img-top mt-3" alt="hotel interior image">
-      <div class="card-body">
-        <h4 class="card-title">${hotel.name}</h4>
-        
-        <p class="card-text">from<span class="span-price"> $${hotel.price}</span></p>
-        <ul class="list-group list-group-flush">
-<li class="list-group-item">Rating: <h5><span class="badge badge-primary ">${hotel.rating}</span></h5></li>
-      </ul>
-      <button class="bg-primary text-white mt-1 update" onclick="getOne(${hotel.id})"><i class="fas fa-pencil-alt"></i></button><button class="bg-primary delete ml-2 text-danger mt-1" onclick="deleteOne(${hotel.id})"><i class="fas fa-times"></i></button>
-      </div>
-    </div>`;
+      let rating = "";
+
+      for (let i = 0; i < hotel.rating; i++) {
+        rating += `<i class="fas fa-star"></i>`;
+      }
+
+      const output = `<div class="col-md-3 card card-body mt-4 mr-2 display">
+    <img src="../img/airbnb.jpg" class="card-img-top mt-3" alt="hotel interior image">
+    <div class="card-body">
+      <h4 class="card-title">${hotel.name}</h4>
+      
+      <p class="card-text">from<span class="span-price"> $${hotel.price}</span></p>
+      <ul class="list-group list-group-flush">
+<li class="list-group-item">Rating: <h6>${rating}</span></h6></li>
+    </ul>
+    <button class="btn btn-primary text-white mt-1 update" onclick="getOne(${hotel.id})"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-primary delete ml-2 text-danger mt-1" onclick="deleteOne(${hotel.id})"><i class="fas fa-times"></i></button>
+    </div>
+  </div>`;
 
       $(".collections")
         .show()
@@ -214,20 +233,24 @@ $(() => {
 
         const hotel = response.data;
 
-        // $('.collections').html = response.data
-        console.log(hotel);
-        const output = `<div class="col-md-3 card card-body mt-4 mr-2 display" onclick="getDetails(${hotel.id})">
-        <img src="../img/airbnb.jpg" class="card-img-top mt-3" alt="hotel interior image">
-        <div class="card-body">
-          <h4 class="card-title">${hotel.name}</h4>
-          
-          <p class="card-text">from<span class="span-price"> $${hotel.price}</span></p>
-          <ul class="list-group list-group-flush">
-  <li class="list-group-item">Rating: <h5><span class="badge badge-primary ">${hotel.rating}</span></h5></li>
-        </ul>
-        <button class="btn btn-primary text-white mt-1 update" onclick="getOne(${hotel.id})"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-primary delete ml-2 text-danger mt-1" onclick="deleteOne(${hotel.id})"><i class="fas fa-times"></i></button>
-        </div>
-      </div>`;
+        let rating = "";
+
+        for (let i = 0; i < hotel.rating; i++) {
+          rating += `<i class="fas fa-star"></i>`;
+        }
+
+        const output = `<div class="col-md-3 card card-body mt-4 mr-2 display">
+    <img src="../img/airbnb.jpg" class="card-img-top mt-3" alt="hotel interior image">
+    <div class="card-body">
+      <h4 class="card-title">${hotel.name}</h4>
+      
+      <p class="card-text">from<span class="span-price"> $${hotel.price}</span></p>
+      <ul class="list-group list-group-flush">
+<li class="list-group-item">Rating: <h6>${rating}</span></h6></li>
+    </ul>
+    <button class="btn btn-primary text-white mt-1 update" onclick="getOne(${hotel.id})"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-primary delete ml-2 text-danger mt-1" onclick="deleteOne(${hotel.id})"><i class="fas fa-times"></i></button>
+    </div>
+  </div>`;
 
         $(".collections")
           .show()
