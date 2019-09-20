@@ -18,7 +18,10 @@ function getDetails(id) {
           
           <p class="card-text">from<span class="span-price"> $${price}</span></p>
           <ul class="list-group list-group-flush">
-  <li class="list-group-item">Rating: <h6>${ratings}</span></h6></li>
+  <li class="list-group-item">Rating: <span>${ratings}</span></li>
+  <li class="list-group-item">Website: <span>${website}</span></li>
+<li class="list-group-item">Location: <span>${city} ${state}</span></li>
+
         </ul>
         <button class="btn btn-primary text-white mt-1 update" onclick="getOne(${id})"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-primary delete ml-2 text-danger mt-1" onclick="deleteOne(${id})"><i class="fas fa-times"></i></button>
         </div>
@@ -132,7 +135,7 @@ function updateHotel(id) {
     rating: $(".rating").val(),
     price: $(".price").val()
   };
-
+  //update hotel
   $.ajax({
     url: `http://localhost:5000/hotel/${id}`,
     type: "patch",
@@ -157,7 +160,6 @@ function updateHotel(id) {
       <ul class="list-group list-group-flush">
 <li class="list-group-item">Rating: <h6>${rating}</span></h6></li>
     </ul>
-    <button class="btn btn-primary text-white mt-1 update" onclick="getOne(${hotel.id})"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-primary delete ml-2 text-danger mt-1" onclick="deleteOne(${hotel.id})"><i class="fas fa-times"></i></button>
     </div>
   </div>`;
 
@@ -181,7 +183,6 @@ function deleteOne(id) {
     timeout: 15000, // adjust the limit. currently its 15 seconds
     success: function(response) {
       console.log(response);
-      // response.data.find(hotel => hotel.id === id)
     },
     error: function(error) {
       console.log(error);
@@ -213,6 +214,32 @@ $(() => {
     const rating = $(".rating").val();
     const price = $(".price").val();
 
+    if (name === "") {
+      return alert("please fill in the name");
+    }
+    if (website === "") {
+      return alert("please fill in the website");
+    }
+    if (city === "") {
+      return alert("please fill in the city");
+    }
+    if (state === "") {
+      return alert("please fill in the state");
+    }
+    if (rating === "") {
+      return alert("please fill in the rating");
+    }
+
+    if (isNaN(rating) || rating > 5) {
+      return alert("please you can only add numbers from 1 - 5");
+    }
+    if (price === "") {
+      return alert("please fill in the price");
+    }
+    if (isNaN(price)) {
+      return alert("please you can only add numbers");
+    }
+
     let newHotel = {
       name,
       website,
@@ -222,6 +249,7 @@ $(() => {
       price
     };
 
+    $(".create-hotel").hide();
     // post call
     $.ajax({
       url: "http://localhost:5000/hotels",
@@ -229,8 +257,6 @@ $(() => {
       data: newHotel,
       timeout: 15000, // adjust the limit. currently its 15 seconds
       success: function(response) {
-        $(".create-hotel").hide();
-
         const hotel = response.data;
 
         let rating = "";
@@ -248,7 +274,6 @@ $(() => {
       <ul class="list-group list-group-flush">
 <li class="list-group-item">Rating: <h6>${rating}</span></h6></li>
     </ul>
-    <button class="btn btn-primary text-white mt-1 update" onclick="getOne(${hotel.id})"><i class="fas fa-pencil-alt"></i></button><button class="btn btn-primary delete ml-2 text-danger mt-1" onclick="deleteOne(${hotel.id})"><i class="fas fa-times"></i></button>
     </div>
   </div>`;
 

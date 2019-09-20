@@ -1,1 +1,29 @@
-[{"id":1,"name":"continental hotel 3","website":"conty.com.ng","city":"ejigbo","state":"Lagos","rating":"3","price":"89"},{"id":2,"name":"Hotel Newcastle","website":"Hotelnewcastle.com","city":"ejigbo","state":"Lagos","rating":"10","price":"150"},{"id":3,"name":"Novare Hotel","website":"novare.com.ng","city":"ajah","state":"Lagos","rating":"4","price":"350"},{"id":4,"name":"southern sun","website":"southernsun.com.ng","city":"ikoyi","state":"Lagos","rating":"4","price":"90"}]
+[
+  {
+    "id": 3,
+    "name": "Hotel Newcastle",
+    "website": "Hotelnewcastle.com",
+    "city": "ejigbo",
+    "state": "Lagos",
+    "rating": "4",
+    "price": "150"
+  },
+  {
+    "id": 4,
+    "name": "Southern Sun",
+    "website": "southernsun.com.ng",
+    "city": "Ikoyi",
+    "state": "Lagos",
+    "rating": "4",
+    "price": "90"
+  },
+  {
+    "id": 6,
+    "name": "Oriental Pillars",
+    "website": "orientalpillars.com",
+    "city": "Ikoyi",
+    "state": "Lagos",
+    "rating": "5",
+    "price": "500"
+  }
+]
