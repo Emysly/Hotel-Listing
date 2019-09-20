@@ -7,8 +7,6 @@
   background-image: url("../img/apartment-bed-bedroom-271624.jpg");
   height: 20em;
   width: 100%;
-  display: flex;
-  flex-direction: row;
 }
 
 .control-buttons {
